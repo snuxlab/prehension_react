@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import useInterval from './useInterval.js';
 
 function App() {
   const [finaldata, setFinaldata] = useState([])
@@ -7,7 +8,7 @@ function App() {
   const [curRoom, setCurRoom]  = useState("defalut");
 
 
-    
+   
   useEffect(() => {
     const timer = setTimeout(setTime(new Date(), 10000));
     return () => { clearTimeout(timer) };
