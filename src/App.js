@@ -4,10 +4,14 @@ import useInterval from './useInterval.js';
 
 
 
+
+
 function App() {
-  let [finaldata, setFinaldata] = useState([])
+  let [data, setData] = useState([])
   const [time, setTime] = useState(new Date()); 
-  const [curRoom, setCurRoom]  = useState("defalut");
+  const [curRoom, setCurRoom]  = useState("Room1");
+  const [dataFl, setDataFl] = useState(data.s1_fl);
+  const [dataMl, setDataMl] = useState(data.s1_ml);
 
 
    
@@ -20,21 +24,32 @@ function App() {
   useEffect(() => {
     fetch('http://127.0.0.1:5000/api').then(response => 
       response.json().then(data => {
-        setFinaldata(data);
+        setData(data);
       })
     );
   },[]);
 
-  // 3초마다 finaldata 리프레시
+  // 10초마다 finaldata 리프레시
   useInterval(() => {
     fetch('http://127.0.0.1:5000/api').then(response => 
       response.json().then(data => {
-        setFinaldata(data);
+        setData(data);
       })
     );
     console.log('DataFeched');
-  }, 3000);
+    curRoomRender(curRoom);
+  }, 10000);
 
+  //curRoom이 바뀌면 ui 바꾸기
+  function curRoomRender(room) {
+    setCurRoom(room);
+    if (room === "Room1"){
+      setDataFl(data.s1_fl);  setDataMl(data.s1_ml);
+    } else if (room === "Room2"){
+      setDataFl(data.s2_fl);  setDataMl(data.s2_ml);
+    }
+    
+  } 
   
 
   return (
@@ -42,14 +57,14 @@ function App() {
       <header className="App-header">
         <h1>
         {time.toLocaleString()} <br></br>
-        s1_fl
-        {finaldata.s1_fl}<br></br>
-        {finaldata.s1_ml}
+        {curRoom}<br></br>
+        {dataFl}<br></br>
+        {dataMl}
         </h1>
         <div>
-            <h1>{curRoom}</h1>
-            <button value = "Room1" onClick = {({target :  {value}}) => setCurRoom(value)}>Room1</button>
-            <button value = "Room2" onClick = {({target :  {value}}) => setCurRoom(value)}>Room2</button>
+            
+            <button value = "Room1" onClick = {({target :  {value}}) => curRoomRender(value)}>Room1</button>
+            <button value = "Room2" onClick = {({target :  {value}}) => curRoomRender(value)}>Room2</button>
         </div>
         <p>
           테스트 하기
