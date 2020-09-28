@@ -25,6 +25,7 @@ function App() {
     );
   },[]);
 
+  // 3초마다 finaldata 리프레시
   useInterval(() => {
     fetch('http://127.0.0.1:5000/api').then(response => 
       response.json().then(data => {
