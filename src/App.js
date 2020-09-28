@@ -2,8 +2,10 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import useInterval from './useInterval.js';
 
+
+
 function App() {
-  const [finaldata, setFinaldata] = useState([])
+  let [finaldata, setFinaldata] = useState([])
   const [time, setTime] = useState(new Date()); 
   const [curRoom, setCurRoom]  = useState("defalut");
 
@@ -22,6 +24,17 @@ function App() {
       })
     );
   },[]);
+
+  useInterval(() => {
+    fetch('http://127.0.0.1:5000/api').then(response => 
+      response.json().then(data => {
+        setFinaldata(data);
+      })
+    );
+    console.log('DataFeched');
+  }, 3000);
+
+  
 
   return (
     <div className="App">
