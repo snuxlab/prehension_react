@@ -26,7 +26,7 @@ function App() {
     );
   },[]);
 
-  // 10초마다 data fetch 리프레시
+  // 10초마다 data reload
   useInterval(() => {
     fetch('http://127.0.0.1:5000/api').then(response => 
       response.json().then(data => {
@@ -36,13 +36,14 @@ function App() {
     console.log('DataFeched');
   }, 10000);
 
-  //curRoom, data이 바뀌면 ui update
+  //curRoom, data가 바뀌면 ui update
   useEffect(() => {
     if (curRoom === "Room1"){
-    setDataFl(data.s1_fl);  setDataMl(data.s1_ml);
-    } else if (curRoom === "Room2"){
-    setDataFl(data.s2_fl);  setDataMl(data.s2_ml);
-    }
+      setDataFl(data.s1_fl);  setDataMl(data.s1_ml);
+      } 
+    else if (curRoom === "Room2"){
+      setDataFl(data.s2_fl);  setDataMl(data.s2_ml);
+      }
   },[curRoom,data]);
   
 
