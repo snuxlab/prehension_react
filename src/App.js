@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import useInterval from './useInterval.js';
+import RoomButtonGroup from './component/RoomButtonGroup';
 
 
 
@@ -45,6 +46,8 @@ function App() {
       setDataFl(data.s2_fl);  setDataMl(data.s2_ml);
       }
   },[curRoom,data]);
+
+
   
 
   return (
@@ -63,7 +66,11 @@ function App() {
         <p>
           테스트 하기
         </p>
+
+        <RoomButtonGroup array={[{name : "room1"},{name : "room2"}]}/>
       </header>
+
+      
     </div>
   );
 }
