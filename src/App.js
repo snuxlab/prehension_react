@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import useInterval from './useInterval.js';
-import RoomButtonGroup from './component/RoomButtonGroup';
+import NavTabs from './component/NavTabs'
 
 
 
@@ -11,6 +11,8 @@ function App() {
   const [curRoom, setCurRoom]  = useState("Room1");
   const [dataFl, setDataFl] = useState(data.s1_fl);
   const [dataMl, setDataMl] = useState(data.s1_ml);
+
+  const [btnData, setBtnData] = useState();
    
   useEffect(() => {
     const timer = setTimeout(setTime(new Date(), 10000));
@@ -23,6 +25,7 @@ function App() {
     fetch('http://127.0.0.1:5000/api').then(response => 
       response.json().then(data => {
         setData(data);
+        //console.log(data);
       })
     );
   },[]);
@@ -47,29 +50,27 @@ function App() {
       }
   },[curRoom,data]);
 
-
   
 
   return (
     <div className="App">
-      <header className="App-header">
+      <NavTabs/>
+        {/* 
         <h1>
-        {time.toLocaleString()} <br></br>
-        {curRoom}<br></br>
-        {dataFl}<br></br>
-        {dataMl}
+          {time.toLocaleString()} <br></br>
+          {curRoom}<br></br>
+          {dataFl}<br></br>
+          {dataMl}
         </h1>
         <div>
             <button value = "Room1" onClick = {({target :  {value}}) => setCurRoom(value)}>Room1</button>
             <button value = "Room2" onClick = {({target :  {value}}) => setCurRoom(value)}>Room2</button>
         </div>
-        <p>
-          테스트 하기
-        </p>
-
-        <RoomButtonGroup array={[{name : "room1"},{name : "room2"}]}/>
-      </header>
-
+        
+        
+        
+      */}
+      
       
     </div>
   );
