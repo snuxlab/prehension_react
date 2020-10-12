@@ -66,9 +66,7 @@ function App() {
             <button value = "Room1" onClick = {({target :  {value}}) => setCurRoom(value)}>Room1</button>
             <button value = "Room2" onClick = {({target :  {value}}) => setCurRoom(value)}>Room2</button>
         </div>
-        
-        
-        
+  
       */}
       
       

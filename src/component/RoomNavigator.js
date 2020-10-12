@@ -32,7 +32,7 @@ const StyledToggleButtonGroup = withStyles((theme) => ({
 
 
 
-function RoomNavigator(){
+function RoomNavigator(props){
 
     //층별 어레이 모듈화 하기
     const b1array = [{id : 0, name : "홈짐"},{id : 1,name : "홈트레이닝1"},{id : 2,name : "홈트레이닝2"}];
@@ -41,12 +41,20 @@ function RoomNavigator(){
 
     const [curFloor, setCurFloor] = useState("1");
     const [curJsonArr, setCurJsonArr] = useState(f1array);
+    const [curRoom, setCurRoom] = useState(props.curRoom);
+    
 
     const classes = useStyles();
 
     const handleFloor = (event, newFloor) => {
         setCurFloor(newFloor);
     };
+
+    useEffect(()=>{
+        props.setCurRoom(curRoom);
+    }
+    ,[curRoom]);
+
     
 
 
@@ -77,7 +85,7 @@ function RoomNavigator(){
                     </StyledToggleButtonGroup>
                 </Paper>        
             </Box>
-            <RoomButtonGroup array={curJsonArr} floor={setCurFloor}></RoomButtonGroup>
+            <RoomButtonGroup array={curJsonArr} floor={setCurFloor} setCurRoom={setCurRoom}></RoomButtonGroup>
         </div>
     );
 
