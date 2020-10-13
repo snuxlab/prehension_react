@@ -14,12 +14,15 @@ const useStyles = makeStyles((theme) => ({
     divider: {
       margin: theme.spacing(1, 0.5),
     },
+    
+
+    
 }));
   
 const StyledToggleButtonGroup = withStyles((theme) => ({
     grouped: {
       margin: theme.spacing(0.5),
-      backgroundColor: 'white',
+
       border: 'none',
       '&:not(:first-child)': {
         borderRadius: theme.shape.borderRadius,
@@ -27,6 +30,7 @@ const StyledToggleButtonGroup = withStyles((theme) => ({
       '&:first-child': {
         borderRadius: theme.shape.borderRadius,
       },
+      
     },
 }))(ToggleButtonGroup);  
 
@@ -41,15 +45,17 @@ function RoomNavigator(props){
 
     const classes = useStyles();
 
+
     const handleFloor = (event, newFloor) => {
+        
+        
         setCurFloor(newFloor);
         setCurJsonArr(props.data.filter(item => ((item.floor) === newFloor) ));
         
     };
 
     useEffect(()=>{
-        props.setCurRoom(curRoom);
-        
+        props.setCurRoom(curRoom);  
     }
     ,[curRoom]);
 
@@ -57,16 +63,16 @@ function RoomNavigator(props){
     
     return(
         <p>
-            <Box  display="flex" p={2} bgcolor="white" justifyContent="center">
-                <Paper elevation={0} className={classes.paper}>
-                    <StyledToggleButtonGroup exclusive onChange={handleFloor} aria-label = "floor button group">
-                        <ToggleButton value={"B1"}>B1</ToggleButton>
-                        <ToggleButton value={"1"}>1</ToggleButton>
-                        <ToggleButton value={"2"}>2</ToggleButton>
-                        <ToggleButton value={"3"}>3</ToggleButton>
-                        <ToggleButton value={"4"}>4</ToggleButton>
-                        <ToggleButton value={"5"}>5</ToggleButton>
-                        <ToggleButton value={"6"}>6</ToggleButton>
+            <Box  display="flex" p={2} justifyContent="center" >
+                <Paper elevation={0} className={classes.paper} >
+                    <StyledToggleButtonGroup exclusive  onChange={handleFloor} aria-label = "floor button group">
+                        <ToggleButton selected = {(curFloor==="B1")} value={"B1"}>B1</ToggleButton>
+                        <ToggleButton selected = {(curFloor==="1")} value={"1"}>1</ToggleButton>
+                        <ToggleButton selected = {(curFloor==="2")} value={"2"}>2</ToggleButton>
+                        <ToggleButton selected = {(curFloor==="3")} value={"3"}>3</ToggleButton>
+                        <ToggleButton selected = {(curFloor==="4")} value={"4"}>4</ToggleButton>
+                        <ToggleButton selected = {(curFloor==="5")} value={"5"}>5</ToggleButton>
+                        <ToggleButton selected = {(curFloor==="6")} value={"6"}>6</ToggleButton>
                     </StyledToggleButtonGroup>
                 </Paper>        
             </Box>

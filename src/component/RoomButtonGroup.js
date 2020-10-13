@@ -10,6 +10,7 @@ function RoomButtonGroup(props){
 
     const handleIndex = (event, newIndex) => {
         props.setCurRoom(newIndex);
+        setCurIndex(newIndex);
       };
 
     return(
@@ -20,7 +21,7 @@ function RoomButtonGroup(props){
                     <IconButton onClick={()=>{setCurIndex(curIndex-1)}}><ChevronLeft/></IconButton>
                     <ToggleButtonGroup exclusive onChange={handleIndex} aria-label = "room button group">
                         {props.array.map((item)=>
-                        <ToggleButton  value={item.id} key={item.id}>{item.name} </ToggleButton>
+                        <ToggleButton selected ={(curIndex === item.id)} value={item.id} key={item.id}>{item.name} </ToggleButton>
                         )}
                     </ToggleButtonGroup>
                     <IconButton onClick={()=>{setCurIndex(curIndex+1)}}><ChevronRight/></IconButton>
