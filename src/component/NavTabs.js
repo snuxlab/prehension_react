@@ -8,8 +8,8 @@ import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import RoomNavigator from './RoomNavigator'
-import {Person, People} from '@material-ui/icons'
-import { SvgIcon } from '@material-ui/core';
+import {ToggleButton} from '@material-ui/lab';
+import {Favorite, FavoriteBorder} from '@material-ui/icons';
 
 //탭에 종속 되는 패널 생성
 function TabPanel(props) {
@@ -66,7 +66,9 @@ const useStyles = makeStyles((theme) => ({
   tabpanel: {
     marginLeft: "auto",
     marginRight: "auto"
-
+  },
+  fav:{
+    border: 'none'
   }
 }));
 
@@ -79,12 +81,21 @@ export default function NavTabs({data}) {
   const [appIcon, setAppIcon] = useState();
   const [roomName, setRoomName] = useState("");
   const [text, setText] = useState("");
+  const [curFav, setCurFav] = useState(false);
+  const [curFavIcon, setCurFavIcon] = useState();
 
   useEffect(()=>{
     console.log(curRoom);
     appicon(curRoom);
     setRoomName(data.filter(item => item.id == curRoom)[0].floor+"층 "+data.filter(item => item.id == curRoom)[0].name);
   },[curRoom]);
+
+  useEffect(()=> {
+    if (curFav) {setCurFavIcon(<Favorite/>);}
+    else {setCurFavIcon(<FavoriteBorder/>);}
+  },[curFav]);
+
+  
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -157,12 +168,16 @@ export default function NavTabs({data}) {
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}>
-        <TabPanel justifyContent="center"  value={value} index={0} dir={theme.direction}>
+        <TabPanel value={value} index={0} dir={theme.direction}>
           <Box m='auto' flexDirection="column" width = '85%' height={300} boxShadow={2} display='flex' justifyContent='center' alignItems='center'> 
             {roomName}
             {appIcon}
-             {text}
+            {text}
+            <Box width='80%' display='flex' flexDirection="row-reverse">
+              <ToggleButton className={classes.fav} onChange={() => {setCurFav(!curFav);}}>{curFavIcon}</ToggleButton>
+            </Box>
           </Box>
+          
           <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom} data={data}/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
