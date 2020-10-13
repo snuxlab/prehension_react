@@ -13,7 +13,8 @@ function RoomButtonGroup(props){
       };
 
     return(
-        <div>
+        
+        
             <Box display='flex' p={1} justifyContent="center" bgcolor="white">
                 
                     <IconButton onClick={()=>{setCurIndex(curIndex-1)}}><ChevronLeft/></IconButton>
@@ -25,7 +26,8 @@ function RoomButtonGroup(props){
                     <IconButton onClick={()=>{setCurIndex(curIndex+1)}}><ChevronRight/></IconButton>
                 
             </Box>
-        </div>
+        
+        
     );
 }
 

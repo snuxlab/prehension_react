@@ -34,13 +34,8 @@ const StyledToggleButtonGroup = withStyles((theme) => ({
 
 function RoomNavigator(props){
 
-    //층별 어레이 모듈화 하기
-    const b1array = [{id : 0, name : "홈짐"},{id : 1,name : "홈트레이닝1"},{id : 2,name : "홈트레이닝2"}];
-    const f1array = [{id : 10,name : "리빙랩"},{id : 11,name : "1층 공용주방"},{id : 12,name : "택배보관실"}];
-
-
     const [curFloor, setCurFloor] = useState("1");
-    const [curJsonArr, setCurJsonArr] = useState(f1array);
+    const [curJsonArr, setCurJsonArr] = useState(props.data.filter(item => ((item.floor) === "1") ));
     const [curRoom, setCurRoom] = useState(props.curRoom);
     
 
@@ -58,25 +53,12 @@ function RoomNavigator(props){
     }
     ,[curRoom]);
 
-    
 
-    /*
-    useEffect(()=>
-    {
-        switch (curFloor) {
-            case "B1" : 
-                setCurJsonArr(b1array);
-                break;
-            case "1" : 
-                setCurJsonArr(f1array);
-        }
-            
-    }, [curFloor]);*/
     
     return(
-        <div>
-            <Box display="flex" p={2} bgcolor="white" justifyContent="center">
-                <Paper>
+        <p>
+            <Box  display="flex" p={2} bgcolor="white" justifyContent="center">
+                <Paper elevation={0} className={classes.paper}>
                     <StyledToggleButtonGroup exclusive onChange={handleFloor} aria-label = "floor button group">
                         <ToggleButton value={"B1"}>B1</ToggleButton>
                         <ToggleButton value={"1"}>1</ToggleButton>
@@ -89,7 +71,7 @@ function RoomNavigator(props){
                 </Paper>        
             </Box>
             <RoomButtonGroup array={curJsonArr} floor={setCurFloor} setCurRoom={setCurRoom}></RoomButtonGroup>
-        </div>
+        </p>
     );
 
 }

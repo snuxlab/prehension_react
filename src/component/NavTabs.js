@@ -76,12 +76,14 @@ export default function NavTabs({data}) {
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [curRoom, setCurRoom] = useState(0);
-  const [appIcon, setAppIcon] = useState(<PersonIcon/>);
-  const [text, setText] = useState("1명");
+  const [appIcon, setAppIcon] = useState();
+  const [roomName, setRoomName] = useState("");
+  const [text, setText] = useState("");
 
   useEffect(()=>{
     console.log(curRoom);
     appicon(curRoom);
+    setRoomName(data.filter(item => item.id == curRoom)[0].floor+"층 "+data.filter(item => item.id == curRoom)[0].name);
   },[curRoom]);
 
   const handleChange = (event, newValue) => {
@@ -96,8 +98,8 @@ export default function NavTabs({data}) {
   function PersonIcon (){
     return (
       <svg width="61" height="80" viewBox="0 0 61 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M30.2 31C9.7 31 3 70.2 3 70.2C12.4 75.7 21.9 77.1 30.3 77.1C38.7 77.1 48.2 75.6 57.6 70.2C57.6 70.2 50.8 31 30.2 31Z" stroke="#A5A5A5" stroke-width="5" stroke-miterlimit="10"/>
-      <path d="M29.4001 35.6C38.4023 35.6 45.7001 28.3022 45.7001 19.3C45.7001 10.2978 38.4023 3 29.4001 3C20.3979 3 13.1001 10.2978 13.1001 19.3C13.1001 28.3022 20.3979 35.6 29.4001 35.6Z" fill="white" stroke="#A5A5A5" stroke-width="5" stroke-miterlimit="10"/>
+      <path d="M30.2 31C9.7 31 3 70.2 3 70.2C12.4 75.7 21.9 77.1 30.3 77.1C38.7 77.1 48.2 75.6 57.6 70.2C57.6 70.2 50.8 31 30.2 31Z" stroke="#A5A5A5" strokeWidth="5" strokeMiterlimit="10"/>
+      <path d="M29.4001 35.6C38.4023 35.6 45.7001 28.3022 45.7001 19.3C45.7001 10.2978 38.4023 3 29.4001 3C20.3979 3 13.1001 10.2978 13.1001 19.3C13.1001 28.3022 20.3979 35.6 29.4001 35.6Z" fill="white" stroke="#A5A5A5" strokeWidth="5" strokeMiterlimit="10"/>
       </svg>
     );
   }
@@ -105,10 +107,10 @@ export default function NavTabs({data}) {
   function PeopleIcon (){
     return (
       <svg width="122" height="90" viewBox="0 0 122 90" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M100.1 30.4C85.9999 30.4 81.3999 57.3 81.3999 57.3C87.7999 61.1 94.3999 62.1 100.1 62.1C105.9 62.1 112.4 61.1 118.8 57.3C118.8 57.4 114.2 30.4 100.1 30.4Z" stroke="#A5A5A5" stroke-width="5" stroke-miterlimit="10"/>
-      <path d="M99.4998 33.6C105.685 33.6 110.7 28.5856 110.7 22.4C110.7 16.2144 105.685 11.2 99.4998 11.2C93.3142 11.2 88.2998 16.2144 88.2998 22.4C88.2998 28.5856 93.3142 33.6 99.4998 33.6Z" fill="white" stroke="#A5A5A5" stroke-width="5" stroke-miterlimit="10"/>
-      <path d="M21.7 29.2C7.6 29.2 3 56.2 3 56.2C9.4 60 16 61 21.7 61C27.5 61 34 60 40.4 56.2C40.4 56.2 35.8 29.2 21.7 29.2Z" stroke="#A5A5A5" stroke-width="5" stroke-miterlimit="10"/>
-      <path d="M21.0999 32.4C27.2855 32.4 32.2999 27.3856 32.2999 21.2C32.2999 15.0144 27.2855 10 21.0999 10C14.9143 10 9.8999 15.0144 9.8999 21.2C9.8999 27.3856 14.9143 32.4 21.0999 32.4Z" fill="white" stroke="#A5A5A5" stroke-width="5" stroke-miterlimit="10"/>
+      <path d="M100.1 30.4C85.9999 30.4 81.3999 57.3 81.3999 57.3C87.7999 61.1 94.3999 62.1 100.1 62.1C105.9 62.1 112.4 61.1 118.8 57.3C118.8 57.4 114.2 30.4 100.1 30.4Z" stroke="#A5A5A5" strokeWidth="5" strokeMiterlimit="10"/>
+      <path d="M99.4998 33.6C105.685 33.6 110.7 28.5856 110.7 22.4C110.7 16.2144 105.685 11.2 99.4998 11.2C93.3142 11.2 88.2998 16.2144 88.2998 22.4C88.2998 28.5856 93.3142 33.6 99.4998 33.6Z" fill="white" stroke="#A5A5A5" strokeWidth="5" strokeMiterlimit="10"/>
+      <path d="M21.7 29.2C7.6 29.2 3 56.2 3 56.2C9.4 60 16 61 21.7 61C27.5 61 34 60 40.4 56.2C40.4 56.2 35.8 29.2 21.7 29.2Z" stroke="#A5A5A5" strokeWidth="5" strokeMiterlimit="10"/>
+      <path d="M21.0999 32.4C27.2855 32.4 32.2999 27.3856 32.2999 21.2C32.2999 15.0144 27.2855 10 21.0999 10C14.9143 10 9.8999 15.0144 9.8999 21.2C9.8999 27.3856 14.9143 32.4 21.0999 32.4Z" fill="white" stroke="#A5A5A5" strokeWidth="5" strokeMiterlimit="10"/>
       <path d="M53 35.2C55.2 36.7 57.9 37.7 60.8 37.7C64 37.7 66.9 36.6 69.3 34.8C72.5 32.3 74.6 28.3 74.6 23.9C74.6 16.3 68.4 10.1 60.8 10.1C53.2 10.1 47 16.3 47 23.9C47.1 28.5 49.4 32.7 53 35.2Z" fill="white"/>
       <path d="M69.5002 40.5C66.9002 41.8 64.0002 42.6 60.9002 42.6C58.2002 42.6 55.6002 42 53.2002 41C48.5002 44.5 45.0002 50.6 42.6002 56C39.5002 63 37.8002 70.2 37.2002 73.4C44.4002 77.3 52.4002 79.1 61.7002 79.1C71.0002 79.1 79.0002 77.2 86.2002 73.4C85.5002 70.2 83.8002 63 80.7002 56C78.3002 50.4 74.6002 44 69.5002 40.5Z" fill="white"/>
       <path d="M61.6999 86.6C50.3999 86.6 40.6999 84.1 31.8999 79L28.8999 77.3L29.4999 73.9C29.8999 71.4 33.8999 50 45.0999 38.2C41.4999 34.3 39.4999 29.2 39.4999 23.8C39.4999 12 49.0999 2.5 60.7999 2.5C72.4999 2.5 82.1999 12.1 82.1999 23.8C82.1999 28.8 80.4999 33.5 77.3999 37.3C89.3999 48.8 93.4999 71.2 93.8999 73.8L94.4999 77.2L91.4999 78.9C82.6999 84.1 72.9999 86.6 61.6999 86.6ZM40.0999 72C46.4999 75.1 53.5999 76.6 61.6999 76.6C69.7999 76.6 76.8999 75.1 83.2999 72C82.4999 68.6 80.8999 62.7 78.3999 57C75.6999 50.8 72.4999 46.2 69.1999 43.4C66.5999 44.5 63.7999 45.1 60.8999 45.1C58.3999 45.1 55.9999 44.7 53.6999 43.8C50.4999 46.6 47.4999 51.1 44.9999 56.9C42.4999 62.7 40.8999 68.6 40.0999 72ZM60.8999 12.5C54.6999 12.5 49.5999 17.6 49.5999 23.8C49.5999 27.5 51.3999 31 54.4999 33.1C56.3999 34.4 58.5999 35.1 60.8999 35.1C63.3999 35.1 65.7999 34.3 67.8999 32.7C70.6999 30.5 72.2999 27.3 72.2999 23.8C72.1999 17.6 67.0999 12.5 60.8999 12.5Z" fill="#A5A5A5"/>
@@ -137,6 +139,7 @@ export default function NavTabs({data}) {
 
 
   return (
+    
     <div className={classes.root}>
       <AppBar position="static">
         <Tabs
@@ -155,18 +158,11 @@ export default function NavTabs({data}) {
         index={value}
         onChangeIndex={handleChangeIndex}>
         <TabPanel justifyContent="center"  value={value} index={0} dir={theme.direction}>
-          <div>
           <Box m='auto' flexDirection="column" width = '85%' height={300} boxShadow={2} display='flex' justifyContent='center' alignItems='center'> 
-            <div width='1'> {appIcon}</div>
-            
-            <div> {text}</div>
+            {roomName}
+            {appIcon}
+             {text}
           </Box>
-            
-            
-          
-          </div>
-          
-
           <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom} data={data}/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
@@ -174,5 +170,6 @@ export default function NavTabs({data}) {
         </TabPanel>
       </SwipeableViews>
     </div>
+   
   );
 }
