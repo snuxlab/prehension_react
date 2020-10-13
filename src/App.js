@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import useInterval from './useInterval.js';
 import NavTabs from './component/NavTabs'
+import roomData from './roomData.json';
 
 
 
@@ -28,6 +29,8 @@ function App() {
         //console.log(data);
       })
     );
+    console.log("roomData type: ",  typeof roomData);
+    console.log(roomData);
   },[]);
 
   // 10초마다 data reload
