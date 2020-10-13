@@ -14,6 +14,7 @@ function App() {
   const [dataMl, setDataMl] = useState(data.s1_ml);
 
   const [btnData, setBtnData] = useState();
+  const arr = [0,1,2];
    
   useEffect(() => {
     const timer = setTimeout(setTime(new Date(), 10000));
@@ -29,8 +30,7 @@ function App() {
         //console.log(data);
       })
     );
-    console.log("roomData type: ",  typeof roomData);
-    console.log(roomData);
+
   },[]);
 
   // 10초마다 data reload
@@ -57,7 +57,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavTabs/>
+      <NavTabs data={roomData}/>
         {/* 
         <h1>
           {time.toLocaleString()} <br></br>

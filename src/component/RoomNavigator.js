@@ -48,16 +48,19 @@ function RoomNavigator(props){
 
     const handleFloor = (event, newFloor) => {
         setCurFloor(newFloor);
+        setCurJsonArr(props.data.filter(item => ((item.floor) === newFloor) ));
+        
     };
 
     useEffect(()=>{
         props.setCurRoom(curRoom);
+        
     }
     ,[curRoom]);
 
     
 
-
+    /*
     useEffect(()=>
     {
         switch (curFloor) {
@@ -68,7 +71,7 @@ function RoomNavigator(props){
                 setCurJsonArr(f1array);
         }
             
-    }, [curFloor]);
+    }, [curFloor]);*/
     
     return(
         <div>

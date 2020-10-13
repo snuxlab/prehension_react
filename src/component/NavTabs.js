@@ -71,7 +71,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function NavTabs() {
+export default function NavTabs({data}) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -167,7 +167,7 @@ export default function NavTabs() {
           </div>
           
 
-          <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom}/>
+          <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom} data={data}/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           즐겨찾기 아이템 리스트 
