@@ -11,6 +11,10 @@ import RoomNavigator from './RoomNavigator'
 import {ToggleButton} from '@material-ui/lab';
 import {Favorite, FavoriteBorder} from '@material-ui/icons';
 
+
+
+
+
 //탭에 종속 되는 패널 생성
 function TabPanel(props) {
   const { children, value, index} = props;
@@ -84,16 +88,42 @@ export default function NavTabs({data}) {
   const [curFav, setCurFav] = useState(false);
   const [curFavIcon, setCurFavIcon] = useState();
 
+
+  //초기 벨류 설정
+  useEffect(() => {
+    setCurFav(localStorage.getItem(curRoom));
+    console.log(typeof (''+localStorage.length));
+  },[]); 
+
+
+
   useEffect(()=>{
     console.log(curRoom);
     appicon(curRoom);
     setRoomName(data.filter(item => item.id == curRoom)[0].floor+"층 "+data.filter(item => item.id == curRoom)[0].name);
+    setCurFav(localStorage.getItem(curRoom));
   },[curRoom]);
 
   useEffect(()=> {
-    if (curFav) {setCurFavIcon(<Favorite/>);}
-    else {setCurFavIcon(<FavoriteBorder/>);}
+    
+    if (curFav) {
+      setCurFavIcon(<Favorite/>); 
+      localStorage.setItem((''+curRoom),(''+localStorage.length));
+    }
+    else {
+      setCurFavIcon(<FavoriteBorder/>);
+      
+      //removeItem 하면서 순서도 바꿔줘야함
+      localStorage.removeItem(''+curRoom);
+      
+    }
+    
   },[curFav]);
+
+
+  const handleFav = () => {
+    
+  }
 
   
 
