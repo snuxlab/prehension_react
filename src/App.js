@@ -22,6 +22,8 @@ function App() {
   }, []);
 
 
+  /*
+
   //초기 데이터 fetch
   useEffect(() => {
     fetch('http://127.0.0.1:5000/api').then(response => 
@@ -41,6 +43,9 @@ function App() {
     );
     console.log('DataFeched');
   }, 10000);
+
+
+  */
 
   //curRoom, data가 바뀌면 ui update
   useEffect(() => {
