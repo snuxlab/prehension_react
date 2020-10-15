@@ -76,7 +76,7 @@ function RoomNavigator(props){
                     </StyledToggleButtonGroup>
                 </Paper>        
             </Box>
-            <RoomButtonGroup array={curJsonArr} floor={setCurFloor} setCurRoom={setCurRoom}></RoomButtonGroup>
+            <RoomButtonGroup array={curJsonArr} floor={setCurFloor} setCurRoom={setCurRoom} curRoom={curRoom}></RoomButtonGroup>
         </p>
     );
 

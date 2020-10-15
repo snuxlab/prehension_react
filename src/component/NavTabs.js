@@ -121,7 +121,7 @@ export default function NavTabs({data}) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
-  const [curRoom, setCurRoom] = useState(0);
+  const [curRoom, setCurRoom] = useState(10);
   const [appIcon, setAppIcon] = useState();
   const [roomName, setRoomName] = useState("");
   const [text, setText] = useState("");
@@ -231,6 +231,10 @@ export default function NavTabs({data}) {
         setAppIcon(<PersonIcon />);
         setText("1명");
         break;
+      case 10 :
+          setAppIcon(<PersonIcon />);
+          setText("1명");
+          break; 
     }
   }
 
