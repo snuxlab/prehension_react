@@ -11,7 +11,11 @@ function RoomButtonGroup(props){
     const handleIndex = (event, newIndex) => {
         props.setCurRoom(newIndex);
         setCurIndex(newIndex);
+        
       };
+
+
+    
 
     return(
         
