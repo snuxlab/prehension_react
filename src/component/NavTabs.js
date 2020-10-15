@@ -1,18 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import {AppBar, Tabs, Tab, Typography, Box} from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
-import AppBar from '@material-ui/core/AppBar';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
 import RoomNavigator from './RoomNavigator'
+import FavCard from './FavCard';
 import {ToggleButton} from '@material-ui/lab';
 import {Favorite, FavoriteBorder} from '@material-ui/icons';
 
 
-
+const useWindowUnloadEffect = (handler, callOnCleanup) => {
+  const cb = useRef()
+  
+  cb.current = handler
+  
+  useEffect(() => {
+    const handler = () => cb.current()
+  
+    window.addEventListener('beforeunload', handler)
+    
+    return () => {
+      if(callOnCleanup) handler()
+    
+      window.removeEventListener('beforeunload', handler)
+    }
+  }, [cb])
+}
 
 
 //탭에 종속 되는 패널 생성
@@ -88,42 +101,65 @@ export default function NavTabs({data}) {
   const [curFav, setCurFav] = useState(false);
   const [curFavIcon, setCurFavIcon] = useState();
 
+  const [favArr, setFavArr] = useState([]);
+
+
+  useWindowUnloadEffect(() => {
+    localStorage.clear();
+    for(var i = 0; i < favArr.length; i++){
+      localStorage.setItem(favArr[i], i);
+    }}, true);
+
 
   //초기 벨류 설정
   useEffect(() => {
-    setCurFav(localStorage.getItem(curRoom));
-    console.log(typeof (''+localStorage.length));
+    //추후에 로그인 혹은 쿠키 활성화시 가장 curRoom 세팅
+    
+    for (var i=0; i<localStorage.length; i++){
+      setFavArr(favArr.concat(parseInt(localStorage.key(i))));
+    }
+
+    //언마운트시에 localStorage에 Arr 저장 ++ 리프레시에도 콜 되도록
+    return () => {
+      localStorage.clear();
+      for(var i = 0; i < favArr.length; i++){
+        localStorage.setItem(favArr[i], i);
+      }
+    }
   },[]); 
 
 
 
   useEffect(()=>{
-    console.log(curRoom);
     appicon(curRoom);
-    setRoomName(data.filter(item => item.id == curRoom)[0].floor+"층 "+data.filter(item => item.id == curRoom)[0].name);
-    setCurFav(localStorage.getItem(curRoom));
+    //setRoomName(data.filter((item) => (item.id === curRoom))[0].floor +"층 "+ data.filter(item => (item.id === curRoom))[0].name);
+    setCurFav(favArr.indexOf(curRoom) !== -1);
+    console.log(favArr);
   },[curRoom]);
 
   useEffect(()=> {
-    
+
     if (curFav) {
       setCurFavIcon(<Favorite/>); 
-      localStorage.setItem((''+curRoom),(''+localStorage.length));
+      //length가 마지막 아이템의 index가 되도록 설정
+      if(favArr.indexOf(curRoom) === -1){
+        setFavArr(favArr.concat(curRoom));
+      }
+      
     }
     else {
       setCurFavIcon(<FavoriteBorder/>);
-      
-      //removeItem 하면서 순서도 바꿔줘야함
-      localStorage.removeItem(''+curRoom);
+
+      if(favArr.indexOf(curRoom) !== -1){
+        console.log("removed");
+        setFavArr(favArr.filter(item => item != curRoom));
+        
+      }
+
       
     }
-    
   },[curFav]);
 
-
-  const handleFav = () => {
-    
-  }
 
   
 
@@ -134,6 +170,9 @@ export default function NavTabs({data}) {
   const handleChangeIndex = (index) => {
     setValue(index);
   };
+
+
+  
 
 
   function PersonIcon (){
@@ -187,8 +226,7 @@ export default function NavTabs({data}) {
           variant="fullWidth"
           value={value}
           onChange={handleChange}
-          aria-label="nav tabs example"
-          variant="fullWidth"
+          aria-label="nav tabs"
         >
           <LinkTab label="홈" href="/drafts" {...a11yProps(0)} />
           <LinkTab label="즐겨찾기" href="/trash" {...a11yProps(1)} />
@@ -211,7 +249,9 @@ export default function NavTabs({data}) {
           <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom} data={data}/>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          즐겨찾기 아이템 리스트 
+          {favArr.map(numid => 
+            <FavCard key={numid} id={numid} name="홈짐"/>
+            )}
         </TabPanel>
       </SwipeableViews>
     </div>
