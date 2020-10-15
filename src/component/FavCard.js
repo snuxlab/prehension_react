@@ -22,6 +22,7 @@ export default function FavCard({id, name}) {
         if(~~(roomid/10) === 0) {return "B1" ; }
         else {return (""+ ~~(roomid/10)) ; }
     };
+
         
     
      return (

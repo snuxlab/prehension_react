@@ -131,6 +131,14 @@ export default function NavTabs({data}) {
   const [favArr, setFavArr] = useState([]);
 
 
+  const nameOfRoom = (roomid) =>{
+    return (data.filter(item => item.id === roomid)[0].name);
+  }
+
+
+  
+
+
   //리프레시시에, 현재 favArr의 item들 저장
   useWindowUnloadEffect(() => {
     localStorage.clear();
@@ -167,12 +175,9 @@ export default function NavTabs({data}) {
 
   useEffect(()=>{
     appicon(curRoom);
-    //setRoomName(data.filter((item) => (item.id === curRoom))[0].floor +"층 "+ data.filter(item => (item.id === curRoom))[0].name);
+    setRoomName(data.filter((item) => (item.id === curRoom))[0].floor +"층 "+ nameOfRoom(curRoom));
     setCurFav(favArr.indexOf(curRoom) !== -1);
     console.log(favArr);
-
-    
-
 
 
   },[curRoom]);
@@ -262,7 +267,7 @@ export default function NavTabs({data}) {
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
           {favArr.map(numid => 
-            <FavCard key={numid} id={numid} name="홈짐"/>
+            <FavCard key={numid} id={numid} name={nameOfRoom(numid)}/>
             )}
         </TabPanel>
       </SwipeableViews>
