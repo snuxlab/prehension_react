@@ -15,9 +15,8 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1, 0.5),
     },
     
-
-    
 }));
+
   
 const StyledToggleButtonGroup = withStyles((theme) => ({
     grouped: {
@@ -46,13 +45,21 @@ function RoomNavigator(props){
     const classes = useStyles();
 
 
-    const handleFloor = (event, newFloor) => {
-        
-        
-        setCurFloor(newFloor);
-        setCurJsonArr(props.data.filter(item => ((item.floor) === newFloor) ));
-        
+    const handleFloor = (event, newFloor) => { 
+      setCurFloor(newFloor);
+      setCurJsonArr(props.data.filter(item => ((item.floor) === newFloor) )); 
+      /*setCurRoom(() => {
+        if (newFloor === "B1"){return 0;}
+        else {return (parseInt(newFloor)*10); }
+      });*/
+      
     };
+
+    const floor =(floorInString) =>{
+      if (floorInString === "B1"){return 0;}
+        else {return (parseInt(floorInString)); }
+    }
+
 
     useEffect(()=>{
         props.setCurRoom(curRoom);  
@@ -76,7 +83,7 @@ function RoomNavigator(props){
                     </StyledToggleButtonGroup>
                 </Paper>        
             </Box>
-            <RoomButtonGroup array={curJsonArr} floor={setCurFloor} setCurRoom={setCurRoom} curRoom={curRoom}></RoomButtonGroup>
+            <RoomButtonGroup array={curJsonArr} setCurFloor={setCurFloor} curFloor={floor(curFloor)} setCurRoom={setCurRoom} curRoom={curRoom}></RoomButtonGroup>
         </p>
     );
 

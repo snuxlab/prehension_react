@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {AppBar, Tabs, Tab, Typography, Box} from '@material-ui/core';
+import {AppBar, Tabs, Tab, Typography, Box, Grid, Paper} from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import RoomNavigator from './RoomNavigator'
 import FavCard from './FavCard';
@@ -9,6 +9,7 @@ import {ToggleButton} from '@material-ui/lab';
 import {Favorite, FavoriteBorder} from '@material-ui/icons';
 
 
+//reload 되기 직전 함수 콜
 const useWindowUnloadEffect = (handler, callOnCleanup) => {
   const cb = useRef()
   
@@ -87,6 +88,10 @@ const useStyles = makeStyles((theme) => ({
   },
   fav:{
     border: 'none'
+  },
+  predict : {
+    height : 50,
+    padding : 10
   }
 }));
 
@@ -183,18 +188,15 @@ export default function NavTabs({data}) {
   },[curRoom]);
 
   useEffect(()=> {
-
     if (curFav) {
       setCurFavIcon(<Favorite/>); 
       //length가 마지막 아이템의 index가 되도록 설정
       if(favArr.indexOf(curRoom) === -1){
         setFavArr(favArr.concat(curRoom));
       }
-      
     }
     else {
       setCurFavIcon(<FavoriteBorder/>);
-
       if(favArr.indexOf(curRoom) !== -1){
         console.log("removed");
         setFavArr(favArr.filter(item => item != curRoom));
@@ -202,6 +204,8 @@ export default function NavTabs({data}) {
       }
     }
   },[curFav]);
+
+
 
 
   
@@ -259,8 +263,19 @@ export default function NavTabs({data}) {
         onChangeIndex={handleChangeIndex}>
         <TabPanel value={value} index={0} dir={theme.direction}>
           <Box m='auto' flexDirection="column" width = '85%' height={300} boxShadow={2} display='flex' justifyContent='center' alignItems='center'> 
-            {roomName}
-            {appIcon}
+            <Box p={1}> {roomName} </Box>
+            <Grid container justify="center" spacing ={1}> 
+              <Grid item >
+                <Paper className={classes.predict}  >1h</Paper>
+              </Grid>
+              <Grid item >
+                <Paper className={classes.predict}  >2h</Paper>
+              </Grid>
+              <Grid item>
+                <Paper className={classes.predict}  >3h</Paper>
+              </Grid>
+            </Grid>
+            <Box p={1}> {appIcon} </Box>
             {text}
             <Box width='80%' display='flex' flexDirection="row-reverse">
               <ToggleButton className={classes.fav} onChange={() => {setCurFav(!curFav);}}>{curFavIcon}</ToggleButton>
@@ -269,10 +284,12 @@ export default function NavTabs({data}) {
           
           <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom} data={data}/>
         </TabPanel>
-        <TabPanel value={value} index={1} dir={theme.direction}>
+        <TabPanel  value={value} index={1} dir={theme.direction}>
+          
           {favArr.map(numid => 
             <FavCard key={numid} id={numid} name={nameOfRoom(numid)}/>
             )}
+          
         </TabPanel>
       </SwipeableViews>
     </div>
