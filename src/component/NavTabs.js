@@ -97,6 +97,17 @@ const useStyles = makeStyles((theme) => ({
 
 
 
+
+function EmptyIcon () {
+  return(
+    <svg width="59" height="79" viewBox="0 0 59 79" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 32.9493C6.63725 42.0686 2 69.2 2 69.2C11.4 74.7 20.9 76.1 29.3 76.1C37.7 76.1 47.2 74.6 56.6 69.2C56.6 69.2 51.8935 42.0686 38.4499 32.9493" stroke="#A5A5A5" stroke-width="4" stroke-miterlimit="10" stroke-linecap="square" stroke-linejoin="round" stroke-dasharray="4 9"/>
+      <path d="M28.4001 34.6C37.4023 34.6 44.7001 27.3022 44.7001 18.3C44.7001 9.29776 37.4023 2 28.4001 2C19.3979 2 12.1001 9.29776 12.1001 18.3C12.1001 27.3022 19.3979 34.6 28.4001 34.6Z" stroke="#A5A5A5" stroke-width="4" stroke-miterlimit="10" stroke-linecap="square" stroke-linejoin="round" stroke-dasharray="4 9"/>
+    </svg>
+  );
+}
+
+
 function PersonIcon (){
   return (
     <svg width="61" height="80" viewBox="0 0 61 80" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,12 +145,12 @@ const savedData =() =>{
 }
 
 
-export default function NavTabs({roomdata}) {
+export default function NavTabs({roomdata, nop}) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
   const [curRoom, setCurRoom] = useState(10);
-  const [appIcon, setAppIcon] = useState();
+  const [appIcon, setAppIcon] = useState("Loading data...");
   const [roomName, setRoomName] = useState("");
   const [text, setText] = useState("");
   const [curFav, setCurFav] = useState(false);
@@ -153,9 +164,6 @@ export default function NavTabs({roomdata}) {
   const nameOfRoom = (roomid) =>{
     return (roomdata.filter(item => item.id === roomid)[0].name);
   }
-
-
-
   
 
 
@@ -193,13 +201,24 @@ export default function NavTabs({roomdata}) {
 
 
   useEffect(()=>{
-    appicon(curRoom);
     setRoomName(roomdata.filter((item) => (item.id === curRoom))[0].floor +"층 "+ nameOfRoom(curRoom));
     setCurFav(favArr.indexOf(curRoom) !== -1);
     console.log(favArr);
 
+    console.log(nop);
+    
 
-  },[curRoom]);
+    if(nop[0]){
+      if (curRoom === 10 || curRoom == 12){
+        appicon(parseInt(nop.filter((item)=> parseInt(item.id) === curRoom)[0].nop));
+      } else {
+        setAppIcon("data dose not exist.");
+        setText("");
+      }
+    }
+
+
+  },[curRoom, nop]);
 
   useEffect(()=> {
     if (curFav) {
@@ -238,21 +257,21 @@ export default function NavTabs({roomdata}) {
   const appicon = (roomstate) => {
     switch (roomstate) {
       case 0 : 
-        setAppIcon(<PersonIcon/>);
-        setText("1명");
+        setAppIcon(<EmptyIcon/>);
+        setText("0명");
         break;
       case 1:
-        setAppIcon(<PeopleIcon />);
-        setText("여러명");
-        break;
-      case 2 :
         setAppIcon(<PersonIcon />);
         setText("1명");
         break;
+      case 2 :
+        setAppIcon(<PeopleIcon />);
+        setText("2명이상");
+        break;
       case 10 :
-          setAppIcon(<PersonIcon />);
-          setText("1명");
-          break; 
+        setAppIcon(<EmptyIcon />);
+        setText("0명");
+        break;
     }
   }
 

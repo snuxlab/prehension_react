@@ -6,15 +6,17 @@ import roomData from './roomData.json';
 
 
 
+
+
+
 function App() {
   const [data, setData] = useState([]);
+
   const [time, setTime] = useState(new Date()); 
   const [curRoom, setCurRoom]  = useState("Room1");
-  const [dataFl, setDataFl] = useState(data.s1_fl);
-  const [dataMl, setDataMl] = useState(data.s1_ml);
+  //const [dataFl, setDataFl] = useState(data.s1_fl);
+  //const [dataMl, setDataMl] = useState(data.s1_ml);
 
-  const [btnData, setBtnData] = useState();
-  const arr = [0,1,2];
    
   useEffect(() => {
     const timer = setTimeout(setTime(new Date(), 10000));
@@ -22,49 +24,50 @@ function App() {
   }, []);
 
 
-  
 
   //초기 데이터 fetch
-  useEffect(() => {
-    fetch('http://13.125.216.41:5000/api').then(response => 
-      response.json().then(data => {
-        setData(data);
-      })
-    );
-    console.log(data); 
-
+  useEffect(() => { 
+    async function fetching () {
+      const temp = 
+        await fetch('http://13.125.216.41:5000/api').then(response => 
+        response.json().then(jsondata => {
+        })
+        );
+      setData(temp);
+      
+    }
+    console.log(data);
+    
   },[]);
 
-  /*
-
+  
   // 10초마다 data reload
   useInterval(() => {
-    fetch('http://127.0.0.1:5000/api').then(response => 
+    fetch('http://13.125.216.41:5000/api').then(response => 
       response.json().then(data => {
         setData(data);
       })
     );
     console.log('DataFeched');
   }, 10000);
-
-
-  */
+  
 
   //curRoom, data가 바뀌면 ui update
   useEffect(() => {
+    /*
     if (curRoom === "Room1"){
       setDataFl(data.s1_fl);  setDataMl(data.s1_ml);
       } 
     else if (curRoom === "Room2"){
       setDataFl(data.s2_fl);  setDataMl(data.s2_ml);
-      }
+      }*/
   },[curRoom,data]);
 
   
 
   return (
     <div className="App">
-      <NavTabs roomdata={roomData}/>
+      <NavTabs roomdata={roomData} nop={data} />
         {/* 
         <h1>
           {time.toLocaleString()} <br></br>

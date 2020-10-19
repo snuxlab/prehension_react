@@ -28,8 +28,8 @@ export default function FavCard({id, name}) {
      return (
      <Card className={classes.root}>
          <CardContent>
-             <Typography className={classes.roomname}>{floor(id)}층 {name}</Typography>
-             <Typography className={classes.roomnop}>현재 여러명이 있습니다.</Typography>
+             <Typography  className={classes.roomname}>{floor(id)}층 {name}</Typography>
+             <Typography  className={classes.roomnop}>현재 여러명이 있습니다.</Typography>
          </CardContent>
      </Card>
      );

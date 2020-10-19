@@ -48,10 +48,7 @@ function RoomNavigator(props){
     const handleFloor = (event, newFloor) => { 
       setCurFloor(newFloor);
       setCurJsonArr(props.roomdata.filter(item => ((item.floor) === newFloor) )); 
-      /*setCurRoom(() => {
-        if (newFloor === "B1"){return 0;}
-        else {return (parseInt(newFloor)*10); }
-      });*/
+      //setCurRoom(floor(newFloor)*10);
       
     };
 
