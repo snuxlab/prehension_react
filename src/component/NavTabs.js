@@ -122,6 +122,18 @@ function PeopleIcon (){
 }
 
 
+const savedData =() =>{
+  let newArr = [];
+  for (var i=0; i<localStorage.length; i++){
+    const newId = localStorage.key(i);
+    //console 에는 각 벨류 값이 잘 프린트 되는데 setFavArr에서 에러가 나는 듯
+    newArr[newArr.length] = parseInt(newId);
+    
+  }
+  return newArr;
+}
+
+
 export default function NavTabs({data}) {
   const classes = useStyles();
   const theme = useTheme();
@@ -133,12 +145,15 @@ export default function NavTabs({data}) {
   const [curFav, setCurFav] = useState(false);
   const [curFavIcon, setCurFavIcon] = useState();
 
-  const [favArr, setFavArr] = useState([]);
+  const [favArr, setFavArr] = useState(savedData());
+  
+  
 
 
   const nameOfRoom = (roomid) =>{
     return (data.filter(item => item.id === roomid)[0].name);
   }
+
 
 
   
@@ -153,19 +168,18 @@ export default function NavTabs({data}) {
     console.log("data saved in localStorage")
   }, true);
 
+  
+
 
 
 
   //초기 벨류 설정
   useEffect(() => {
     //추후에 로그인 혹은 쿠키 활성화시 가장 curRoom 세팅
-    
-    //처음 로딩시, localStorage에 있는 roomid favArr에 저장이 안된다... 왜지????? 왜???? plz..........
-    for (var i=0; i<localStorage.length; i++){
-      setFavArr(favArr.concat(parseInt(localStorage.key(i))));
-    }
-
     console.log("data loaded from localStorage");
+    
+    
+    
 
     //언마운트시에 localStorage에 Arr 저장 
     return () => {
@@ -288,7 +302,7 @@ export default function NavTabs({data}) {
           
           {favArr.map(numid => 
             <FavCard key={numid} id={numid} name={nameOfRoom(numid)}/>
-            )}
+          )}
           
         </TabPanel>
       </SwipeableViews>
