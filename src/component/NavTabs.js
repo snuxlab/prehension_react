@@ -12,17 +12,13 @@ import {Favorite, FavoriteBorder} from '@material-ui/icons';
 //reload 되기 직전 함수 콜
 const useWindowUnloadEffect = (handler, callOnCleanup) => {
   const cb = useRef()
-  
   cb.current = handler
   
   useEffect(() => {
     const handler = () => cb.current()
-  
     window.addEventListener('beforeunload', handler)
-    
     return () => {
       if(callOnCleanup) handler()
-    
       window.removeEventListener('beforeunload', handler)
     }
   }, [cb])
@@ -298,7 +294,8 @@ export default function NavTabs({roomdata, nop}) {
           <Box m='auto' flexDirection="column" width = '85%' height={300} boxShadow={2} display='flex' justifyContent='center' alignItems='center'> 
             <Box p={1}> {roomName} </Box>
 
-            {nop[0] ? <Grid container justify="center" spacing ={1}> 
+            {nop[0] && (curRoom === 10 || curRoom === 12) ? 
+            <Grid container justify="center" spacing ={1}> 
               <Grid item >
                 <Paper className={classes.predict}  >1h</Paper>
               </Grid>
@@ -310,13 +307,13 @@ export default function NavTabs({roomdata, nop}) {
               </Grid>
             </Grid> : <span></span>}
 
-
-
             <Box p={1}> {appIcon} </Box>
             {text}
-            {nop[0] ?  <Box width='80%' display='flex' flexDirection="row-reverse">
+
+            <Box width='80%' display='flex' flexDirection="row-reverse">
               <ToggleButton className={classes.fav} onChange={() => {setCurFav(!curFav);}}>{curFavIcon}</ToggleButton>
-            </Box> : <span></span>}
+            </Box> 
+
           </Box> 
           
           <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom} roomdata={roomdata}/>
