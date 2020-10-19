@@ -297,7 +297,8 @@ export default function NavTabs({roomdata, nop}) {
         <TabPanel value={value} index={0} dir={theme.direction}>
           <Box m='auto' flexDirection="column" width = '85%' height={300} boxShadow={2} display='flex' justifyContent='center' alignItems='center'> 
             <Box p={1}> {roomName} </Box>
-            <Grid container justify="center" spacing ={1}> 
+
+            {nop[0] ? <Grid container justify="center" spacing ={1}> 
               <Grid item >
                 <Paper className={classes.predict}  >1h</Paper>
               </Grid>
@@ -307,13 +308,16 @@ export default function NavTabs({roomdata, nop}) {
               <Grid item>
                 <Paper className={classes.predict}  >3h</Paper>
               </Grid>
-            </Grid>
+            </Grid> : <span></span>}
+
+
+
             <Box p={1}> {appIcon} </Box>
             {text}
-            <Box width='80%' display='flex' flexDirection="row-reverse">
+            {nop[0] ?  <Box width='80%' display='flex' flexDirection="row-reverse">
               <ToggleButton className={classes.fav} onChange={() => {setCurFav(!curFav);}}>{curFavIcon}</ToggleButton>
-            </Box>
-          </Box>
+            </Box> : <span></span>}
+          </Box> 
           
           <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom} roomdata={roomdata}/>
         </TabPanel>
