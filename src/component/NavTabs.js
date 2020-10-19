@@ -134,7 +134,7 @@ const savedData =() =>{
 }
 
 
-export default function NavTabs({data}) {
+export default function NavTabs({roomdata}) {
   const classes = useStyles();
   const theme = useTheme();
   const [value, setValue] = React.useState(0);
@@ -151,7 +151,7 @@ export default function NavTabs({data}) {
 
 
   const nameOfRoom = (roomid) =>{
-    return (data.filter(item => item.id === roomid)[0].name);
+    return (roomdata.filter(item => item.id === roomid)[0].name);
   }
 
 
@@ -194,7 +194,7 @@ export default function NavTabs({data}) {
 
   useEffect(()=>{
     appicon(curRoom);
-    setRoomName(data.filter((item) => (item.id === curRoom))[0].floor +"층 "+ nameOfRoom(curRoom));
+    setRoomName(roomdata.filter((item) => (item.id === curRoom))[0].floor +"층 "+ nameOfRoom(curRoom));
     setCurFav(favArr.indexOf(curRoom) !== -1);
     console.log(favArr);
 
@@ -296,7 +296,7 @@ export default function NavTabs({data}) {
             </Box>
           </Box>
           
-          <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom} data={data}/>
+          <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom} roomdata={roomdata}/>
         </TabPanel>
         <TabPanel  value={value} index={1} dir={theme.direction}>
           

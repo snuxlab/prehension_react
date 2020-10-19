@@ -7,7 +7,7 @@ import roomData from './roomData.json';
 
 
 function App() {
-  let [data, setData] = useState([]);
+  const [data, setData] = useState([]);
   const [time, setTime] = useState(new Date()); 
   const [curRoom, setCurRoom]  = useState("Room1");
   const [dataFl, setDataFl] = useState(data.s1_fl);
@@ -22,17 +22,20 @@ function App() {
   }, []);
 
 
-  /*
+  
 
   //초기 데이터 fetch
   useEffect(() => {
-    fetch('http://127.0.0.1:5000/api').then(response => 
+    fetch('http://13.125.216.41:5000/api').then(response => 
       response.json().then(data => {
         setData(data);
       })
     );
+    console.log(data); 
 
   },[]);
+
+  /*
 
   // 10초마다 data reload
   useInterval(() => {
@@ -61,7 +64,7 @@ function App() {
 
   return (
     <div className="App">
-      <NavTabs data={roomData}/>
+      <NavTabs roomdata={roomData}/>
         {/* 
         <h1>
           {time.toLocaleString()} <br></br>

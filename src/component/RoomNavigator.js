@@ -38,7 +38,7 @@ const StyledToggleButtonGroup = withStyles((theme) => ({
 function RoomNavigator(props){
 
     const [curFloor, setCurFloor] = useState("1");
-    const [curJsonArr, setCurJsonArr] = useState(props.data.filter(item => ((item.floor) === "1") ));
+    const [curJsonArr, setCurJsonArr] = useState(props.roomdata.filter(item => ((item.floor) === "1") ));
     const [curRoom, setCurRoom] = useState(props.curRoom);
     
 
@@ -47,7 +47,7 @@ function RoomNavigator(props){
 
     const handleFloor = (event, newFloor) => { 
       setCurFloor(newFloor);
-      setCurJsonArr(props.data.filter(item => ((item.floor) === newFloor) )); 
+      setCurJsonArr(props.roomdata.filter(item => ((item.floor) === newFloor) )); 
       /*setCurRoom(() => {
         if (newFloor === "B1"){return 0;}
         else {return (parseInt(newFloor)*10); }
