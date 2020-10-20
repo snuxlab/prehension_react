@@ -262,7 +262,7 @@ export default function NavTabs({roomdata, nop}) {
         break;
       case 2 :
         setAppIcon(<PeopleIcon />);
-        setText("2명이상");
+        setText("2명 이상");
         break;
       case 10 :
         setAppIcon(<EmptyIcon />);
