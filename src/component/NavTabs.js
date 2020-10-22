@@ -214,7 +214,7 @@ export default function NavTabs({roomdata, nop}) {
   return (
     
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" elevation={1}>
         <Tabs
           variant="fullWidth"
           value={value}
@@ -231,8 +231,8 @@ export default function NavTabs({roomdata, nop}) {
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}>
-        <TabPanel value={value} index={0} dir={theme.direction}>
-          <Box m='auto' borderRadius="borderRadius" flexDirection="column" width = '85%' height={300} boxShadow={2} display='flex' justifyContent='center' > 
+        <TabPanel value={value} index={0} dir={theme.direction} width='100%'>
+          <Box m='auto' borderRadius={12} flexDirection="column" width = '85%' height={300} boxShadow={2} display='flex' justifyContent='center' > 
             <Box alignItems="flex-start" p={1}> {roomName} </Box>
             <Box p={1}> {appIcon} </Box>
             {text}
