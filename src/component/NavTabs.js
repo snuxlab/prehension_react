@@ -4,9 +4,9 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import {AppBar, Tabs, Tab, Typography, Box, Grid, Paper} from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import RoomNavigator from './RoomNavigator'
-import FavCard from './FavCard';
 import {ToggleButton} from '@material-ui/lab';
-import {Favorite, FavoriteBorder} from '@material-ui/icons';
+import { createMuiTheme } from '@material-ui/core/styles';
+
 
 
 //reload 되기 직전 함수 콜
@@ -62,7 +62,7 @@ function a11yProps(index) {
 function LinkTab(props) {
   return (
     <Tab
-      component="a"
+      component="a" 
       onClick={(event) => {
         event.preventDefault();
       }}
@@ -78,18 +78,32 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: 'grey.300',
   },
+  tabs: {
+    backgroundColor : "white",
+    padding : theme.spacing(1),
+    
+  },
+  indicator: {
+    backgroundColor: "white"
+  },
+  tab:{
+    color : "black",
+    textTransform: 'none'
+  },
   tabpanel: {
     marginLeft: "auto",
     marginRight: "auto"
   },
-  fav:{
-    border: 'none'
-  },
+
   predict : {
     height : 50,
     padding : 10
   }
 }));
+
+
+
+
 
 
 
@@ -129,111 +143,40 @@ function PeopleIcon (){
 }
 
 
-const savedData =() =>{
-  let newArr = [];
-  for (var i=0; i<localStorage.length; i++){
-    const newId = localStorage.key(i);
-    //console 에는 각 벨류 값이 잘 프린트 되는데 setFavArr에서 에러가 나는 듯
-    newArr[newArr.length] = parseInt(newId);
-    
-  }
-  return newArr;
-}
-
 
 export default function NavTabs({roomdata, nop}) {
-  const classes = useStyles();
   const theme = useTheme();
+  const classes = useStyles();
+  
   const [value, setValue] = React.useState(0);
   const [curRoom, setCurRoom] = useState(10);
   const [appIcon, setAppIcon] = useState("Loading data...");
   const [roomName, setRoomName] = useState("");
   const [text, setText] = useState("");
-  const [curFav, setCurFav] = useState(false);
-  const [curFavIcon, setCurFavIcon] = useState();
-
-  const [favArr, setFavArr] = useState(savedData());
   
   
-
-
+  
   const nameOfRoom = (roomid) =>{
     return (roomdata.filter(item => item.id === roomid)[0].name);
   }
   
 
 
-  //리프레시시에, 현재 favArr의 item들 저장
-  useWindowUnloadEffect(() => {
-    localStorage.clear();
-    for(var i = 0; i < favArr.length; i++){
-      localStorage.setItem(favArr[i], i);
-    }
-    console.log("data saved in localStorage")
-  }, true);
-
   
-
-
-
-
-  //초기 벨류 설정
-  useEffect(() => {
-    //추후에 로그인 혹은 쿠키 활성화시 가장 curRoom 세팅
-    console.log("data loaded from localStorage");
-    
-    
-    
-
-    //언마운트시에 localStorage에 Arr 저장 
-    return () => {
-      localStorage.clear();
-      for(var i = 0; i < favArr.length; i++){
-        localStorage.setItem(favArr[i], i);
-      }
-    }
-  },[]); 
-
-
-
   useEffect(()=>{
-    setRoomName(roomdata.filter((item) => (item.id === curRoom))[0].floor +"층 "+ nameOfRoom(curRoom));
-    setCurFav(favArr.indexOf(curRoom) !== -1);
-    console.log(favArr);
-
-    console.log(nop);
-    
-
+    //데이터 Fetch 이후
     if(nop[0]){
       if (curRoom === 10 || curRoom == 12){
         appicon(parseInt(nop.filter((item)=> parseInt(item.id) === curRoom)[0].nop));
+        setRoomName(roomdata.filter((item) => (item.id === curRoom))[0].floor +"층 "+ nameOfRoom(curRoom));
       } else {
         setAppIcon("data dose not exist.");
         setText("");
+        setRoomName("");
+
       }
     }
-
-
   },[curRoom, nop]);
-
-  useEffect(()=> {
-    if (curFav) {
-      setCurFavIcon(<Favorite/>); 
-      //length가 마지막 아이템의 index가 되도록 설정
-      if(favArr.indexOf(curRoom) === -1){
-        setFavArr(favArr.concat(curRoom));
-      }
-    }
-    else {
-      setCurFavIcon(<FavoriteBorder/>);
-      if(favArr.indexOf(curRoom) !== -1){
-        console.log("removed");
-        setFavArr(favArr.filter(item => item != curRoom));
-        
-      }
-    }
-  },[curFav]);
-
 
 
 
@@ -264,10 +207,6 @@ export default function NavTabs({roomdata, nop}) {
         setAppIcon(<PeopleIcon />);
         setText("2명 이상");
         break;
-      case 10 :
-        setAppIcon(<EmptyIcon />);
-        setText("0명");
-        break;
     }
   }
 
@@ -281,9 +220,11 @@ export default function NavTabs({roomdata, nop}) {
           value={value}
           onChange={handleChange}
           aria-label="nav tabs"
+          className = {classes.tabs}
+          TabIndicatorProps={{style: {background:'white'}}}
         >
-          <LinkTab label="홈" href="/drafts" {...a11yProps(0)} />
-          <LinkTab label="즐겨찾기" href="/trash" {...a11yProps(1)} />
+          <LinkTab className={classes.tab} label="Share Circle" href="/drafts" {...a11yProps(0)} />
+          
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -291,40 +232,15 @@ export default function NavTabs({roomdata, nop}) {
         index={value}
         onChangeIndex={handleChangeIndex}>
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Box m='auto' flexDirection="column" width = '85%' height={300} boxShadow={2} display='flex' justifyContent='center' alignItems='center'> 
-            <Box p={1}> {roomName} </Box>
-
-            {nop[0] && (curRoom === 10 || curRoom === 12) ? 
-            <Grid container justify="center" spacing ={1}> 
-              <Grid item >
-                <Paper className={classes.predict}  >1h</Paper>
-              </Grid>
-              <Grid item >
-                <Paper className={classes.predict}  >2h</Paper>
-              </Grid>
-              <Grid item>
-                <Paper className={classes.predict}  >3h</Paper>
-              </Grid>
-            </Grid> : <span></span>}
-
+          <Box m='auto' borderRadius="borderRadius" flexDirection="column" width = '85%' height={300} boxShadow={2} display='flex' justifyContent='center' > 
+            <Box alignItems="flex-start" p={1}> {roomName} </Box>
             <Box p={1}> {appIcon} </Box>
             {text}
-
-            <Box width='80%' display='flex' flexDirection="row-reverse">
-              <ToggleButton className={classes.fav} onChange={() => {setCurFav(!curFav);}}>{curFavIcon}</ToggleButton>
-            </Box> 
-
           </Box> 
           
           <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom} roomdata={roomdata}/>
         </TabPanel>
-        <TabPanel  value={value} index={1} dir={theme.direction}>
-          
-          {favArr.map(numid => 
-            <FavCard key={numid} id={numid} name={nameOfRoom(numid)}/>
-          )}
-          
-        </TabPanel>
+        
       </SwipeableViews>
     </div>
    
