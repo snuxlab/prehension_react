@@ -35,11 +35,10 @@ const StyledToggleButtonGroup = withStyles((theme) => ({
 
 
 
-function RoomNavigator(props){
+function RoomNavigator({roomdata, curRoom, setCurRoom}){
 
     const [curFloor, setCurFloor] = useState("1");
-    const [curJsonArr, setCurJsonArr] = useState(props.roomdata.filter(item => ((item.floor) === "1") ));
-    const [curRoom, setCurRoom] = useState(props.curRoom);
+    const [curJsonArr, setCurJsonArr] = useState(roomdata.filter(item => ((item.floor) === "1") ));
     
 
     const classes = useStyles();
@@ -47,7 +46,7 @@ function RoomNavigator(props){
 
     const handleFloor = (event, newFloor) => { 
       setCurFloor(newFloor);
-      setCurJsonArr(props.roomdata.filter(item => ((item.floor) === newFloor) )); 
+      setCurJsonArr(roomdata.filter(item => ((item.floor) === newFloor) )); 
       //setCurRoom(floor(newFloor)*10);
       
     };
@@ -59,14 +58,14 @@ function RoomNavigator(props){
 
 
     useEffect(()=>{
-        props.setCurRoom(curRoom);  
+        setCurRoom(curRoom);  
     }
-    ,[curRoom]);
+    ,[curRoom, setCurRoom]);
 
 
     
     return(
-        <p>
+       <Box display="flex" flexDirection="column">
             <Box  display="flex" p={2} justifyContent="center" >
                 <Paper elevation={0} className={classes.paper} >
                     <StyledToggleButtonGroup exclusive  onChange={handleFloor} aria-label = "floor button group">
@@ -81,7 +80,7 @@ function RoomNavigator(props){
                 </Paper>        
             </Box>
             <RoomButtonGroup array={curJsonArr} setCurFloor={setCurFloor} curFloor={floor(curFloor)} setCurRoom={setCurRoom} curRoom={curRoom}></RoomButtonGroup>
-        </p>
+      </Box>  
     );
 
 }
