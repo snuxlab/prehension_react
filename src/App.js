@@ -12,32 +12,13 @@ import roomData from './roomData.json';
 function App() {
   const [data, setData] = useState([]);
 
-  const [time, setTime] = useState(new Date()); 
-  const [curRoom, setCurRoom]  = useState("Room1");
-  //const [dataFl, setDataFl] = useState(data.s1_fl);
-  //const [dataMl, setDataMl] = useState(data.s1_ml);
-
-   
-  useEffect(() => {
-    const timer = setTimeout(setTime(new Date(), 10000));
-    return () => { clearTimeout(timer) };
-  }, []);
-
-
-
   //초기 데이터 fetch
   useEffect(() => { 
     async function fetching () {
-      const temp = 
-        await fetch('http://13.125.216.41:5000/api').then(response => 
-        response.json().then(jsondata => {
-        })
-        );
+      const temp = await fetch('http://13.125.216.41:5000/api').then(response => response.json());
       setData(temp);
-      
     }
-    console.log(data);
-    
+    fetching();
   },[]);
 
   
@@ -52,37 +33,11 @@ function App() {
   }, 10000);
   
 
-  //curRoom, data가 바뀌면 ui update
-  useEffect(() => {
-    /*
-    if (curRoom === "Room1"){
-      setDataFl(data.s1_fl);  setDataMl(data.s1_ml);
-      } 
-    else if (curRoom === "Room2"){
-      setDataFl(data.s2_fl);  setDataMl(data.s2_ml);
-      }*/
-  },[curRoom,data]);
-
   
 
   return (
     <div className="App">
       <NavTabs roomdata={roomData} nop={data} />
-        {/* 
-        <h1>
-          {time.toLocaleString()} <br></br>
-          {curRoom}<br></br>
-          {dataFl}<br></br>
-          {dataMl}
-        </h1>
-        <div>
-            <button value = "Room1" onClick = {({target :  {value}}) => setCurRoom(value)}>Room1</button>
-            <button value = "Room2" onClick = {({target :  {value}}) => setCurRoom(value)}>Room2</button>
-        </div>
-  
-      */}
-      
-      
     </div>
   );
 }

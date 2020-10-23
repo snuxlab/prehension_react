@@ -1,87 +1,66 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState} from 'react';
 import {Box, Paper} from '@material-ui/core'
-import { makeStyles, withStyles } from '@material-ui/core/styles';
+import { withStyles, makeStyles } from '@material-ui/core/styles';
 import {ToggleButtonGroup, ToggleButton} from '@material-ui/lab'
 import RoomButtonGroup from './RoomButtonGroup';
 
 
 const useStyles = makeStyles((theme) => ({
-    paper: {
-      display: 'flex',
-      border: `1px solid ${theme.palette.divider}`,
-      flexWrap: 'wrap',
-    },
-    divider: {
-      margin: theme.spacing(1, 0.5),
-    },
-    
+  paper: {
+    display: 'flex',
+    backgroundColor : '#f1f1f1',
+    flexWrap: 'wrap',
+    variant : 'outlined'
+  },
 }));
 
   
 const StyledToggleButtonGroup = withStyles((theme) => ({
-    grouped: {
-      margin: theme.spacing(0.5),
-
-      border: 'none',
-      '&:not(:first-child)': {
-        borderRadius: theme.shape.borderRadius,
-      },
-      '&:first-child': {
-        borderRadius: theme.shape.borderRadius,
-      },
-      
+  root : {
+    display : 'flex',
+    width : '100%'
+  },
+  grouped: {
+    margin: theme.spacing(0.5),
+    fontSize: 10,
+    border: 'none',
+    '&:not(:first-child)': {
+      borderRadius: theme.shape.borderRadius,
     },
+    '&:first-child': {
+      borderRadius: theme.shape.borderRadius,
+    },
+      
+  },
 }))(ToggleButtonGroup);  
 
 
 
-function RoomNavigator(props){
-
-    const [curFloor, setCurFloor] = useState("1");
-    const [curJsonArr, setCurJsonArr] = useState(props.roomdata.filter(item => ((item.floor) === "1") ));
-    const [curRoom, setCurRoom] = useState(props.curRoom);
+function RoomNavigator({curRoom, setCurRoom}){
+  const [curFloor, setCurFloor] = useState("1");
+  const [array, setArray] = useState("");
     
+  const classes = useStyles();
 
-    const classes = useStyles();
-
-
-    const handleFloor = (event, newFloor) => { 
-      setCurFloor(newFloor);
-      setCurJsonArr(props.roomdata.filter(item => ((item.floor) === newFloor) )); 
-      //setCurRoom(floor(newFloor)*10);
-      
-    };
-
-    const floor =(floorInString) =>{
-      if (floorInString === "B1"){return 0;}
-        else {return (parseInt(floorInString)); }
-    }
-
-
-    useEffect(()=>{
-        props.setCurRoom(curRoom);  
-    }
-    ,[curRoom]);
+  const handleFloor = (event, newFloor) => { 
+    setCurRoom(newRoomId);      
+  };
 
 
     
-    return(
-        <p>
-            <Box  display="flex" p={2} justifyContent="center" >
-                <Paper elevation={0} className={classes.paper} >
-                    <StyledToggleButtonGroup exclusive  onChange={handleFloor} aria-label = "floor button group">
-                        <ToggleButton selected = {(curFloor==="B1")} value={"B1"}>B1</ToggleButton>
-                        <ToggleButton selected = {(curFloor==="1")} value={"1"}>1</ToggleButton>
-                        <ToggleButton selected = {(curFloor==="2")} value={"2"}>2</ToggleButton>
-                        <ToggleButton selected = {(curFloor==="3")} value={"3"}>3</ToggleButton>
-                        <ToggleButton selected = {(curFloor==="4")} value={"4"}>4</ToggleButton>
-                        <ToggleButton selected = {(curFloor==="5")} value={"5"}>5</ToggleButton>
-                        <ToggleButton selected = {(curFloor==="6")} value={"6"}>6</ToggleButton>
-                    </StyledToggleButtonGroup>
-                </Paper>        
-            </Box>
-            <RoomButtonGroup array={curJsonArr} setCurFloor={setCurFloor} curFloor={floor(curFloor)} setCurRoom={setCurRoom} curRoom={curRoom}></RoomButtonGroup>
-        </p>
+  return(
+    <Box  display="flex" p={2} justifyContent="center" >
+      <Paper className = {classes.paper} elevation={0}>
+        <StyledToggleButtonGroup exclusive  onChange={handleRoom} aria-label = "room button group">
+            <ToggleButton selected = {(curRoom ===10)} value={10} ><div><span>1층</span><br></br><div>리빙랩</div></div></ToggleButton>
+            <ToggleButton selected = {(curRoom ===12)} value={12} ><div><span>1층</span><br></br><div>공용주방</div></div></ToggleButton>
+            <ToggleButton selected = {(curRoom ===11)} value={11} ><div><span>1층</span><br></br><div>택배 보관실</div></div></ToggleButton>
+            <ToggleButton selected = {(curRoom ===60)} value={60} ><div><span>6층</span><br></br><div>회의실</div></div></ToggleButton>
+            <ToggleButton selected = {(curRoom ===63)} value={63} ><div><span>6층</span><br></br><div>살롱</div></div></ToggleButton>
+        </StyledToggleButtonGroup>   
+      </Paper> 
+      <RoomButtonGroup curRoom= {curRoom} setCurRoom={setCurRoom} curFloor={curFloor} />
+    </Box>
     );
 
 }
