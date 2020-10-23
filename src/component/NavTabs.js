@@ -173,14 +173,14 @@ export default function NavTabs({roomdata, nop}) {
       setCurFavIcon(<Favorite/>); 
       //length가 마지막 아이템의 index가 되도록 설정
       if(favArr.indexOf(curRoom) === -1){
-        setFavArr(favArr.concat(curRoom));
+        setFavArr(favArr => favArr.concat(curRoom));
       }
     }
     else {
       setCurFavIcon(<FavoriteBorder/>);
       if(favArr.indexOf(curRoom) !== -1){
         console.log("removed");
-        setFavArr(favArr.filter(item => item !== curRoom));
+        setFavArr(favArr => favArr.filter(item => item !== curRoom));
         
       }
     }
@@ -261,7 +261,7 @@ export default function NavTabs({roomdata, nop}) {
             {text}
 
             <Box width='80%' display='flex' flexDirection="row-reverse">
-              <ToggleButton className={classes.fav} onChange={() => {setCurFav(!curFav);}}>{curFavIcon}</ToggleButton>
+              <ToggleButton value='add-to-favorite' className={classes.fav} onChange={() => {setCurFav(!curFav);}}>{curFavIcon}</ToggleButton>
             </Box> 
 
           </Box> 
