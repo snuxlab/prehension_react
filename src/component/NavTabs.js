@@ -6,6 +6,7 @@ import SwipeableViews from 'react-swipeable-views';
 import RoomNavigator from './RoomNavigator'
 import {ToggleButton} from '@material-ui/lab';
 import { createMuiTheme } from '@material-ui/core/styles';
+import { display } from '@material-ui/system';
 
 
 
@@ -92,9 +93,20 @@ const useStyles = makeStyles((theme) => ({
   },
   tabpanel: {
     marginLeft: "auto",
-    marginRight: "auto"
+    marginRight: "auto",
+    backgroundColor: "black"
   },
-
+  nopviewer:{
+    borderRadius : 12,
+    display : "flex",
+    flexDirection : "column",
+    width : "85%",
+    height : 300,
+    justifyContent : "center",
+    border : 1,
+    borderColor: "grey.300",
+    margin : "auto"
+  },
   predict : {
     height : 50,
     padding : 10
@@ -232,7 +244,7 @@ export default function NavTabs({roomdata, nop}) {
         index={value}
         onChangeIndex={handleChangeIndex}>
         <TabPanel value={value} index={0} dir={theme.direction} width='100%'>
-          <Box m='auto' borderRadius={12} flexDirection="column" width = '85%' height={300} boxShadow={2} display='flex' justifyContent='center' > 
+          <Box className = {classes.nopviewer} > 
             <Box alignItems="flex-start" p={1}> {roomName} </Box>
             <Box p={1}> {appIcon} </Box>
             {text}
