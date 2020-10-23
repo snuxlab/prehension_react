@@ -12,16 +12,12 @@ import roomData from './roomData.json';
 function App() {
   const [data, setData] = useState([]);
 
-  const [time, setTime] = useState(new Date()); 
   const [curRoom, setCurRoom]  = useState("Room1");
   //const [dataFl, setDataFl] = useState(data.s1_fl);
   //const [dataMl, setDataMl] = useState(data.s1_ml);
 
    
-  useEffect(() => {
-    const timer = setTimeout(setTime(new Date(), 10000));
-    return () => { clearTimeout(timer) };
-  }, []);
+ 
 
 
 

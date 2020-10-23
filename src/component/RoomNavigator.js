@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {Box, Paper} from '@material-ui/core'
+import {Box} from '@material-ui/core'
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import {ToggleButtonGroup, ToggleButton} from '@material-ui/lab'
 

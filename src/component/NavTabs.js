@@ -1,12 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {AppBar, Tabs, Tab, Typography, Box, Grid, Paper} from '@material-ui/core';
+import {AppBar, Tabs, Tab, Typography, Box, } from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import RoomNavigator from './RoomNavigator'
-import {ToggleButton} from '@material-ui/lab';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { display } from '@material-ui/system';
 
 
 
@@ -103,8 +100,7 @@ const useStyles = makeStyles((theme) => ({
     width : "85%",
     height : 300,
     justifyContent : "center",
-    border : 1,
-    borderColor: "grey.300",
+    border : `1px solid #c4c4c4`,
     margin : "auto"
   },
   predict : {
@@ -178,7 +174,7 @@ export default function NavTabs({roomdata, nop}) {
   useEffect(()=>{
     //데이터 Fetch 이후
     if(nop[0]){
-      if (curRoom === 10 || curRoom == 12){
+      if (curRoom === 10 || curRoom === 12){
         appicon(parseInt(nop.filter((item)=> parseInt(item.id) === curRoom)[0].nop));
         setRoomName(roomdata.filter((item) => (item.id === curRoom))[0].floor +"층 "+ nameOfRoom(curRoom));
       } else {
@@ -243,7 +239,7 @@ export default function NavTabs({roomdata, nop}) {
         axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
         index={value}
         onChangeIndex={handleChangeIndex}>
-        <TabPanel value={value} index={0} dir={theme.direction} width='100%'>
+        <TabPanel value={value} index={0} dir={theme.direction} width='100%' justifyContent='center'>
           <Box className = {classes.nopviewer} > 
             <Box alignItems="flex-start" p={1}> {roomName} </Box>
             <Box p={1}> {appIcon} </Box>
