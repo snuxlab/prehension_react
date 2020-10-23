@@ -78,16 +78,40 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: 'grey.300',
   },
+  tabs: {
+    backgroundColor : "white",
+    padding : theme.spacing(1),
+    
+  },
+  indicator: {
+    backgroundColor: "white"
+  },
+  tab:{
+    color : "black",
+    textTransform: 'none',
+    fontWeight : 'fontWeightBold'
+  },
   tabpanel: {
     marginLeft: "auto",
-    marginRight: "auto"
+    marginRight: "auto",
+    backgroundColor: "black"
   },
-  fav:{
-    border: 'none'
+  nopviewer:{
+    borderRadius : 12,
+    display : "flex",
+    flexDirection : "column",
+    width : "85%",
+    height : 300,
+    justifyContent : "center",
+    border : `2px solid #f1f1f1`,
+    margin : "auto"
   },
   predict : {
     height : 50,
     padding : 10
+  },
+  fav:{
+    border : 'none'
   }
 }));
 
@@ -231,6 +255,7 @@ export default function NavTabs({roomdata, nop}) {
           value={value}
           onChange={handleChange}
           aria-label="nav tabs"
+          className={classes.tab}
         >
           <LinkTab label="홈" href="/drafts" {...a11yProps(0)} />
           <LinkTab label="즐겨찾기" href="/trash" {...a11yProps(1)} />
@@ -241,7 +266,7 @@ export default function NavTabs({roomdata, nop}) {
         index={value}
         onChangeIndex={handleChangeIndex}>
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Box m='auto' flexDirection="column" width = '85%' height={300} boxShadow={2} display='flex' justifyContent='center' alignItems='center'> 
+          <Box className={classes.nopviewer}> 
             <Box p={1}> {roomName} </Box>
 
             {nop[0] && (curRoom === 10 || curRoom === 12) ? 

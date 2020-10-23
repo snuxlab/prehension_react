@@ -8,7 +8,8 @@ import RoomButtonGroup from './RoomButtonGroup';
 const useStyles = makeStyles((theme) => ({
     paper: {
       display: 'flex',
-      border: `1px solid ${theme.palette.divider}`,
+      width : "85%",
+      border: `2px solid #f1f1f1`,
       flexWrap: 'wrap',
     },
     divider: {
