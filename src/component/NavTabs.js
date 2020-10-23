@@ -70,7 +70,8 @@ const useStyles = makeStyles((theme) => ({
   },
   tab:{
     color : "black",
-    textTransform: 'none'
+    textTransform: 'none',
+    fontWeight : 'fontWeightBold'
   },
   tabpanel: {
     marginLeft: "auto",
@@ -84,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
     width : "85%",
     height : 300,
     justifyContent : "center",
-    border : `2px solid #c4c4c4`,
+    border : `2px solid #f1f1f1`,
     margin : "auto"
   },
   predict : {
@@ -107,14 +108,17 @@ export default function NavTabs({roomdata, nop}) {
   
   
   
-  const nameOfRoom = (roomid) =>{
-    return (roomdata.filter(item => item.id === roomid)[0].name);
-  }
+  
   
 
 
   
   useEffect(()=>{
+
+    const nameOfRoom = (roomid) =>{
+      return (roomdata.filter(item => item.id === roomid)[0].name);
+    }
+
     //데이터 Fetch 이후
     if(nop[0]){
       if (curRoom === 10 || curRoom === 12){
@@ -192,9 +196,7 @@ export default function NavTabs({roomdata, nop}) {
           
           <RoomNavigator setCurRoom={setCurRoom} curRoom={curRoom} roomdata={roomdata}/>
         </TabPanel>
-        
       </SwipeableViews>
     </div>
-   
   );
 }
