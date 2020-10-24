@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => ({
   },
   tabs: {
     backgroundColor : "white",
-    padding : theme.spacing(1),
+    
     
   },
   indicator: {
@@ -255,10 +255,11 @@ export default function NavTabs({roomdata, nop}) {
           value={value}
           onChange={handleChange}
           aria-label="nav tabs"
-          className={classes.tab}
+          className={classes.tabs}
+          elevation = {1}
         >
-          <LinkTab label="홈" href="/drafts" {...a11yProps(0)} />
-          <LinkTab label="즐겨찾기" href="/trash" {...a11yProps(1)} />
+          <LinkTab className={classes.tab} label="홈" href="/drafts" {...a11yProps(0)} />
+          <LinkTab className={classes.tab} label="즐겨찾기" href="/trash" {...a11yProps(1)} />
         </Tabs>
       </AppBar>
       <SwipeableViews
@@ -267,7 +268,7 @@ export default function NavTabs({roomdata, nop}) {
         onChangeIndex={handleChangeIndex}>
         <TabPanel value={value} index={0} dir={theme.direction}>
           <Box className={classes.nopviewer}> 
-            <Box p={1}> {roomName} </Box>
+            <Box > {roomName} </Box>
 
             {nop[0] && (curRoom === 10 || curRoom === 12) ? 
             <Grid container justify="center" spacing ={1}> 

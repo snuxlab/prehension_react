@@ -11,6 +11,9 @@ const useStyles = makeStyles((theme) => ({
       width : "85%",
       border: `2px solid #f1f1f1`,
       flexWrap: 'wrap',
+      marginTop : 30,
+      justifyContent : "center",
+      borderRadius : 12
     },
     divider: {
       margin: theme.spacing(1, 0.5),
@@ -20,15 +23,16 @@ const useStyles = makeStyles((theme) => ({
 
   
 const StyledToggleButtonGroup = withStyles((theme) => ({
+    
     grouped: {
       margin: theme.spacing(0.5),
-
+      minWidth : 36,
       border: 'none',
       '&:not(:first-child)': {
-        borderRadius: theme.shape.borderRadius,
+        borderRadius: 8,
       },
       '&:first-child': {
-        borderRadius: theme.shape.borderRadius,
+        borderRadius: 8,
       },
       
     },
@@ -67,7 +71,7 @@ function RoomNavigator({roomdata, curRoom, setCurRoom}){
     
     return(
        <Box display="flex" flexDirection="column">
-            <Box  display="flex" p={2} justifyContent="center" >
+            <Box  display="flex"  justifyContent="center" >
                 <Paper elevation={0} className={classes.paper} >
                     <StyledToggleButtonGroup exclusive  onChange={handleFloor} aria-label = "floor button group">
                         <ToggleButton selected = {(curFloor==="B1")} value={"B1"}>B1</ToggleButton>
