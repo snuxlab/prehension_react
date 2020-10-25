@@ -10,6 +10,7 @@ import {ChevronLeft, ChevronRight} from '@material-ui/icons';
 const useStyles = makeStyles((theme) => ({
     icnbutton : {
         padding : 3
+        
     }
     
 }));
