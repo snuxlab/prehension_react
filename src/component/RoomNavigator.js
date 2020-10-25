@@ -7,10 +7,14 @@ import {ToggleButtonGroup, ToggleButton} from '@material-ui/lab'
 const useStyles = makeStyles((theme) => ({
   paper: {
     display: 'flex',
-    backgroundColor : '#f1f1f1',
+    width : "85%",
+    border: `2px solid #f1f1f1`,
     flexWrap: 'wrap',
-    variant : 'outlined'
+    marginTop : 30,
+    justifyContent : "center",
+    borderRadius : 12
   },
+
   
   
   
