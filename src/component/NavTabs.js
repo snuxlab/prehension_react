@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius : 12,
     display : "flex",
     flexDirection : "column",
-    width : "85%",
+    width : "90%",
     height : 300,
     justifyContent : "center",
     border : `2px solid #f1f1f1`,
