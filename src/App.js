@@ -5,10 +5,6 @@ import NavTabs from './component/NavTabs'
 import roomData from './roomData.json';
 
 
-
-
-
-
 function App() {
   const [data, setData] = useState([]);
 
@@ -33,7 +29,6 @@ function App() {
   }, 10000);
   
 
-  
 
   return (
     <div className="App">

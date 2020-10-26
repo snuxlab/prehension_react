@@ -7,6 +7,9 @@ import {ChevronLeft, ChevronRight} from '@material-ui/icons';
 
 function RoomButtonGroup(props){
     const [curIndex, setCurIndex] = useState(props.curRoom);
+
+
+    
     const handleIndex = (event, newIndex) => {
         props.setCurRoom(newIndex);
         setCurIndex(newIndex);
