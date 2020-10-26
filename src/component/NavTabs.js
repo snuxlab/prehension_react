@@ -179,7 +179,7 @@ export default function NavTabs({roomdata, nop}) {
           className = {classes.tabs}
           TabIndicatorProps={{style: {background:'white'}}}
         >
-          <LinkTab className={classes.tab} label="Share Circle" href="/drafts" {...a11yProps(0)} />
+          <LinkTab className={classes.tab} label="마스터키" href="/drafts" {...a11yProps(0)} />
           
         </Tabs>
       </AppBar>
