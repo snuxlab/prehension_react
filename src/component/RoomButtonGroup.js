@@ -38,7 +38,7 @@ function RoomButtonGroup(props){
             <Box display='flex' p={1} justifyContent="center" bgcolor="white">
                 
                     <IconButton className = {classes.icnbutton} onClick={()=>{ if(curIndex > props.curFloor *10) {setCurIndex(curIndex-1)}}}><ChevronLeft/></IconButton>
-                    <ToggleButtonGroup exclusive onChange={handleIndex} aria-label = "room button group">
+                    <ToggleButtonGroup exclusive onChange={handleIndex} aria-label = "room button group" >
                         {props.array.map((item)=>
                         <ToggleButton selected ={(curIndex === item.id)} value={item.id} key={item.id}>{item.name} </ToggleButton>
                         )}

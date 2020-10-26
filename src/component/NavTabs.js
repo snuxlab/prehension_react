@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import {AppBar, Tabs, Tab,  Box, Grid, Paper} from '@material-ui/core';
+import {AppBar, Tabs, Tab,  Box, Grid, Paper, Typography} from '@material-ui/core';
 import SwipeableViews from 'react-swipeable-views';
 import RoomNavigator from './RoomNavigator'
 import FavCard from './FavCard';
@@ -86,10 +86,19 @@ const useStyles = makeStyles((theme) => ({
   indicator: {
     backgroundColor: "white"
   },
+  appbar : {
+    color : "black",
+    textTransform: 'none',
+    fontWeight : 'fontWeightBold',
+    backgroundColor: "white",
+    
+  },
   tab:{
     color : "black",
     textTransform: 'none',
-    fontWeight : 'fontWeightBold'
+    fontWeight : 'fontWeightBold',
+    minHeight : 52,
+    
   },
   tabpanel: {
     marginLeft: "auto",
@@ -112,8 +121,14 @@ const useStyles = makeStyles((theme) => ({
   },
   fav:{
     border : 'none'
+  },
+  grid : {
+    MarginTop : 10
   }
 }));
+
+
+
 
 
 
@@ -249,7 +264,11 @@ export default function NavTabs({roomdata, nop}) {
   return (
     
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.appbar}>
+        <Box display='flex' minHeight={48} direction="column" alignItems="center" justifyContent="center" flexDirection ="column"> 
+          <Typography >Share Circle</Typography>
+        </Box>
+        
         <Tabs
           variant="fullWidth"
           value={value}
@@ -257,6 +276,7 @@ export default function NavTabs({roomdata, nop}) {
           aria-label="nav tabs"
           className={classes.tabs}
           elevation = {1}
+          spacing = {1}
         >
           <LinkTab className={classes.tab} label="홈" href="/drafts" {...a11yProps(0)} />
           <LinkTab className={classes.tab} label="즐겨찾기" href="/trash" {...a11yProps(1)} />
@@ -268,10 +288,9 @@ export default function NavTabs({roomdata, nop}) {
         onChangeIndex={handleChangeIndex}>
         <TabPanel value={value} index={0} dir={theme.direction}>
           <Box className={classes.nopviewer}> 
-            <Box > {roomName} </Box>
-
+            <Box p={2}>   {roomName} </Box>
             {nop[0] && (curRoom === 10 || curRoom === 12) ? 
-            <Grid container justify="center" spacing ={1}> 
+            <Grid container justify="center" spacing ={1} p={4}> 
               <Grid item >
                 <Paper className={classes.predict}  >1h</Paper>
               </Grid>
@@ -283,7 +302,7 @@ export default function NavTabs({roomdata, nop}) {
               </Grid>
             </Grid> : <span></span>}
 
-            <Box p={1}> {appIcon} </Box>
+            <Box p={2}> {appIcon} </Box>
             {text}
 
             <Box width='80%' display='flex' flexDirection="row-reverse">
