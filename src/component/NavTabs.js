@@ -91,7 +91,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: 'none',
     fontWeight : 'fontWeightBold',
     backgroundColor: "white",
-    
+    elevation : 1
   },
   tab:{
     color : "black",
