@@ -9,7 +9,7 @@ import {ToggleButton} from '@material-ui/lab';
 import {Favorite, FavoriteBorder} from '@material-ui/icons';
 import NopIcon from './NopIcon';
 
-//reload 되기 직전 함수 콜
+//reload 되기 직전 함수 콜하는 함수
 const useWindowUnloadEffect = (handler, callOnCleanup) => {
   const cb = useRef()
   cb.current = handler
@@ -72,7 +72,7 @@ function LinkTab(props) {
 }
 
 
-//탭 패널 스타일
+// CSS 수정
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -131,11 +131,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-
-
-
-
-
+//HTML5 localStorag에 저장되어 있는 데이터 어레이 리턴
 const savedData =() =>{
   let newArr = [];
   for (var i=0; i<localStorage.length; i++){
@@ -161,7 +157,7 @@ export default function NavTabs({roomdata, nop}) {
   
   
 
-
+  // 룸id(num)를 param으로 넣으면 거기에 해당하는 룸이름을 string으로 리턴 
   const nameOfRoom = (roomid) =>{
     return (roomdata.filter(item => item.id === roomid)[0].name);
   }
@@ -192,7 +188,7 @@ export default function NavTabs({roomdata, nop}) {
   }); 
 
 
-
+  //선택된 curRoom에 따라 NoP 뷰어 바꿈
   useEffect(()=>{
     setRoomName(roomdata.filter((item) => (item.id === curRoom))[0].floor +"층 "+ nameOfRoom(curRoom));
     setCurFav(favArr.indexOf(curRoom) !== -1);
@@ -207,6 +203,8 @@ export default function NavTabs({roomdata, nop}) {
     }
   },[curRoom, nop, roomdata]);
 
+
+  // Favorite toggle이 바뀜에 따라 toggle버튼 아이콘변경, favArr에 아이템 추가
   useEffect(()=> {
     if (curFav) {
       setCurFavIcon(<Favorite/>); 
@@ -240,7 +238,7 @@ export default function NavTabs({roomdata, nop}) {
 
   
 
-
+  
   const appicon = (roomstate) => {
     switch (roomstate) {
       case 0 : 
