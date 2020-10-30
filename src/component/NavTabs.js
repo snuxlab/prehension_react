@@ -121,7 +121,7 @@ export default function NavTabs({roomdata, nop}) {
 
     //데이터 Fetch 이후
     if(nop[0]){
-      if (curRoom === 10 || curRoom === 12){
+      if (curRoom === 10 || curRoom === 12 || curRoom === 11){
         appicon(parseInt(nop.filter((item)=> parseInt(item.id) === curRoom)[0].nop));
         setRoomName(roomdata.filter((item) => (item.id === curRoom))[0].floor +"층 "+ nameOfRoom(curRoom));
       } else {
