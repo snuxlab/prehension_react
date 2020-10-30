@@ -11,7 +11,7 @@ function App() {
   //초기 데이터 fetch
   useEffect(() => { 
     async function fetching () {
-      const temp = await fetch('http://13.125.216.41:5000/api').then(response => response.json());
+      const temp = await fetch('https://prehensionapi.herokuapp.com/api').then(response => response.json());
       setData(temp);
     }
     fetching();
@@ -20,7 +20,7 @@ function App() {
   
   // 10초마다 data reload
   useInterval(() => {
-    fetch('http://13.125.216.41:5000/api').then(response => 
+    fetch('https://prehensionapi.herokuapp.com/api').then(response => 
       response.json().then(data => {
         setData(data);
       })
