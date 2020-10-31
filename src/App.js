@@ -26,14 +26,18 @@ function App() {
       })
     );
     console.log('DataFeched');
+    console.log(data)
   }, 10000);
   
 
 
   return (
+  
     <div className="App">
       <NavTabs roomdata={roomData} nop={data} />
     </div>
+    
+    
   );
 }
 
